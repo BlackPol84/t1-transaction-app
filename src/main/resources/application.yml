@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: transaction.app
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    topic:
+      client_transactions: t1_demo_client_transactions
+
+logging:
+  level:
+    ROOT: INFO
