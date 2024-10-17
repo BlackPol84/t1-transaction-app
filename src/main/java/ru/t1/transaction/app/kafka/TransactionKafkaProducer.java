@@ -11,11 +11,12 @@ import ru.t1.transaction.app.model.dto.TransactionDto;
 @Component
 public class TransactionKafkaProducer {
 
-    private final KafkaTemplate<String, TransactionDto> transactionKafkaTemplate;
+    private final KafkaTemplate<Long, TransactionDto> transactionKafkaTemplate;
 
     public void sendTo(String topic, TransactionDto transactionDto) {
         try {
-            transactionKafkaTemplate.send(topic, transactionDto).get();
+            transactionKafkaTemplate.send
+                    (topic, transactionDto.getClientId(), transactionDto).get();
             transactionKafkaTemplate.flush();
             log.debug("Transaction has been sent");
         } catch (Exception ex) {
