@@ -25,7 +25,7 @@ public class KafkaConfig {
     @Value("${spring.kafka.bootstrap-servers}")
     private String servers;
 
-    @Bean("transactionFactory")
+    @Bean
     public ProducerFactory<Long, TransactionDto> producerTransactionFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
@@ -35,7 +35,7 @@ public class KafkaConfig {
         return new DefaultKafkaProducerFactory<>(props);
     }
 
-    @Bean("transactionTemplate")
+    @Bean
     public KafkaTemplate<Long, TransactionDto> transactionKafkaTemplate
             (ProducerFactory<Long, TransactionDto> producerTransactionFactory) {
         return new KafkaTemplate<>(producerTransactionFactory);
