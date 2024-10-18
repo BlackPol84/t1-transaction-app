@@ -5,10 +5,23 @@ spring:
   application:
     name: transaction.app
 
+  datasource:
+    url: jdbc:postgresql://localhost:5434/t1_demo_transaction
+    username: postgres
+    password: 1234
+    driverClassName: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    change-log: db/changelog/db.changelog-master.xml
+
   kafka:
     bootstrap-servers: localhost:9092
     topic:
       client_transactions: t1_demo_client_transactions
+
+security:
+  token: eijveo849357vcuvn3490isdjfu09dfj309msdfgl433vdkfjne4343jn
+  expiration: 86400000
 
 logging:
   level:

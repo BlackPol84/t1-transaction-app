@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +24,11 @@ public class TransactionController {
     private final TransactionKafkaProducer producer;
 
     @PostMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> sendTransaction(@RequestBody TransactionDto requestTransaction) {
         try {
             producer.sendTo(topic, requestTransaction);
-            log.info("Transaction sent successfully: {}", requestTransaction);
+
             return ResponseEntity.status(HttpStatus.CREATED).body("Transaction processed successfully");
         } catch (Exception e) {
             log.error("Error sending transaction: {}", e.getMessage(), e);
