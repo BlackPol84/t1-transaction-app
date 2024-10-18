@@ -1,5 +1,6 @@
 package ru.t1.transaction.app.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,9 +24,9 @@ public class TransactionController {
     private String topic;
     private final TransactionKafkaProducer producer;
 
-    @PostMapping()
+    @PostMapping("/send")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> sendTransaction(@RequestBody TransactionDto requestTransaction) {
+    public ResponseEntity<String> sendTransaction(@Valid @RequestBody TransactionDto requestTransaction) {
         try {
             producer.sendTo(topic, requestTransaction);
 
