@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -35,6 +36,9 @@ public class TransactionControllerTest {
     @InjectMocks
     private TransactionController transactionController;
 
+    @Value("${spring.kafka.topic.client_transactions}")
+    private String topic;
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(transactionController).build();
@@ -57,7 +61,7 @@ public class TransactionControllerTest {
                         .string("Transaction processed successfully"));
 
         verify(mockProducer, times(1))
-                .sendTo(any(), any(TransactionDto.class));
+                .sendTo(topic, requestTransaction);
     }
 
     @Test
@@ -70,7 +74,7 @@ public class TransactionControllerTest {
         requestTransaction.setTransactionType(TransactionType.DEPOSIT);
 
         doThrow(new RuntimeException("Kafka send error"))
-                .when(mockProducer).sendTo(any(), any(TransactionDto.class));
+                .when(mockProducer).sendTo(topic, requestTransaction);
 
         mockMvc.perform(post("/transactions/send")
                         .contentType(MediaType.APPLICATION_JSON)
