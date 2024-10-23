@@ -25,7 +25,7 @@ public class TransactionController {
     private final TransactionKafkaProducer producer;
 
     @PostMapping("/send")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> sendTransaction(@Valid @RequestBody TransactionDto requestTransaction) {
         try {
             producer.sendTo(topic, requestTransaction);
