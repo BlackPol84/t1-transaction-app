@@ -61,6 +61,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").anonymous()
+                                .requestMatchers("/transactions/send").anonymous()
                                 .anyRequest().authenticated() //all other requests require authentication
                 );
 
