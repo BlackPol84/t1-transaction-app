@@ -22,6 +22,7 @@ public class TransactionController {
 
     @Value("${spring.kafka.topic.client_transactions}")
     private String topic;
+
     private final TransactionKafkaProducer producer;
 
     @PostMapping("/send")
