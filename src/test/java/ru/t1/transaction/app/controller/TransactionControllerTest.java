@@ -9,14 +9,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.t1.transaction.app.kafka.TransactionKafkaProducer;
 import ru.t1.transaction.app.model.dto.TransactionDto;
-import ru.t1.transaction.app.util.TransactionType;
+import ru.t1.transaction.app.model.TransactionType;
 
 import java.math.BigDecimal;
 

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.t1.transaction.app.util.TransactionType;
+import ru.t1.transaction.app.model.TransactionType;
 
 import java.math.BigDecimal;
 
