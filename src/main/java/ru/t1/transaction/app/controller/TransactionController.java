@@ -31,10 +31,14 @@ public class TransactionController {
         try {
             producer.sendTo(topic, requestTransaction);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Transaction processed successfully");
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body("Transaction processed successfully");
+
         } catch (Exception e) {
             log.error("Error sending transaction: {}", e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to process transaction");
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to process transaction");
         }
     }
 }
