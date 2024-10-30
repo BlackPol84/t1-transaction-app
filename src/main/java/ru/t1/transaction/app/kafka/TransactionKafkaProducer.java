@@ -11,16 +11,28 @@ import ru.t1.transaction.app.model.dto.TransactionDto;
 @Component
 public class TransactionKafkaProducer {
 
-    private final KafkaTemplate<Long, TransactionDto> transactionKafkaTemplate;
+    private final KafkaTemplate<Long, TransactionDto> template;
 
     public void sendTo(String topic, TransactionDto transactionDto) {
+
+        validateInputs(topic, transactionDto);
+
         try {
-            transactionKafkaTemplate.send
+            template.send
                     (topic, transactionDto.getClientId(), transactionDto).get();
-            transactionKafkaTemplate.flush();
+            template.flush();
             log.debug("Transaction has been sent");
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
+        }
+    }
+
+    private void validateInputs(String topic, TransactionDto dto) {
+        if (topic == null || topic.trim().isEmpty()) {
+            throw new IllegalArgumentException("Topic must not be null or empty");
+        }
+        if (dto == null) {
+            throw new IllegalArgumentException("TransactionDto must not be null");
         }
     }
 }
