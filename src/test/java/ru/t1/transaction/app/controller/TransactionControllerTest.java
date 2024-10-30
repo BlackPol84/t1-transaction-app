@@ -43,7 +43,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    public void testSendTransaction_Success() throws Exception {
+    public void sendTransaction_whenSuccess_thenReturnStringSuccess() throws Exception {
 
         TransactionDto requestTransaction = new TransactionDto();
         requestTransaction.setAmount(new BigDecimal("100.00"));
@@ -63,7 +63,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    public void testSendTransaction_Error() throws Exception {
+    public void sendTransaction_whenError_thenReturnStringFail() throws Exception {
 
         TransactionDto requestTransaction = new TransactionDto();
         requestTransaction.setAmount(new BigDecimal("100.00"));
